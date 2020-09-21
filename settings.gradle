@@ -1,0 +1,2 @@
+include ':libs', ':test'
+rootProject.name='AnLibs'
