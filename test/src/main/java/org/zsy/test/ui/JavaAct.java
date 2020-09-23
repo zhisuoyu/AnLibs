@@ -3,6 +3,7 @@ package org.zsy.test.ui;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.annotation.Nullable;
@@ -56,7 +57,7 @@ public class JavaAct extends AppCompatActivity {
         });
 
 
-        ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
+        Button button = ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dg.showConfirmDg(JavaAct.this, "des", "positive", new IDg.OnClickListener() {
@@ -72,5 +73,7 @@ public class JavaAct extends AppCompatActivity {
                 });
             }
         });
+
+//        ViewExt.setOnSlowlyClickListener();
     }
 }
