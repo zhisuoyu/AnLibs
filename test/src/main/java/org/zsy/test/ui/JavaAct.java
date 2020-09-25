@@ -57,7 +57,7 @@ public class JavaAct extends AppCompatActivity {
         });
 
 
-        Button button = ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
+         ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dg.showConfirmDg(JavaAct.this, "des", "positive", new IDg.OnClickListener() {

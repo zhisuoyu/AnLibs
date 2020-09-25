@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 public class ViewExt {
 
 
-    public static int minClickPeriod = 1000;
+    public static int minClickPeriod = 2000;
     private static long lastClickMs = -1L;
 
     public static void setMinClickPeriod(int minClickPeriod) {

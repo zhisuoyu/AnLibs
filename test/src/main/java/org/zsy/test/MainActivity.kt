@@ -7,6 +7,7 @@ import org.jetbrains.anko.intentFor
 import org.zsy.libs.ext.addButton
 import org.zsy.test.ui.JavaAct
 import org.zsy.test.ui.KtAct
+import org.zsy.test.ui.TopbarAct
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,6 +19,10 @@ class MainActivity : AppCompatActivity() {
         }
         ll.addButton("Ktx") {
             startActivity(intentFor<KtAct>())
+        }
+
+        ll.addButton("Topbar") {
+            startActivity(intentFor<TopbarAct>())
         }
     }
 
