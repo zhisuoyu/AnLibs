@@ -10,6 +10,10 @@ public class ViewExt {
     public static int minClickPeriod = 2000;
     private static long lastClickMs = -1L;
 
+    public static void update() {
+        lastClickMs = System.currentTimeMillis();
+    }
+
     public static void setMinClickPeriod(int minClickPeriod) {
         ViewExt.minClickPeriod = minClickPeriod;
     }

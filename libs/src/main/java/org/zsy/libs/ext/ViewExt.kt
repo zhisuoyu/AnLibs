@@ -37,3 +37,7 @@ fun View.setOnSlowlyClickListener(
         }
     }
 }
+
+fun updateLastClickMs() {
+    lastClickMs = System.currentTimeMillis()
+}

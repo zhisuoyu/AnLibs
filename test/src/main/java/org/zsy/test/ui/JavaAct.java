@@ -1,10 +1,13 @@
 package org.zsy.test.ui;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +16,7 @@ import org.zsy.libs.dialog.Dg;
 import org.zsy.libs.dialog.IDg;
 import org.zsy.libs.ext.ViewExt;
 import org.zsy.libs.lg.Lg;
+import org.zsy.libs.utils.reference.ToastUtils;
 import org.zsy.test.R;
 
 public class JavaAct extends AppCompatActivity {
@@ -57,7 +61,7 @@ public class JavaAct extends AppCompatActivity {
         });
 
 
-         ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
+        ViewExt.addBtn(ll, "DgConfirm", new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Dg.showConfirmDg(JavaAct.this, "des", "positive", new IDg.OnClickListener() {
@@ -73,6 +77,53 @@ public class JavaAct extends AppCompatActivity {
                 });
             }
         });
+
+        ViewExt.addBtn(ll, "Long", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showLong("Long");
+            }
+        });
+
+        ViewExt.addBtn(ll, "Short", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.showShort("Short");
+            }
+        });
+
+        ViewExt.addBtn(ll, "CustomToast", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.setToastCreator(new ToastUtils.ToastCreator() {
+                    @Override
+                    public Toast create(Context context, CharSequence text, int duration) {
+                        Toast toast = Toast.makeText(context, null, duration);
+                        toast.setText(text);
+                        toast.setGravity(Gravity.TOP, 0, 0);
+                        return toast;
+                    }
+                });
+                ToastUtils.showLong("CustomToast");
+            }
+        });
+
+        ViewExt.addBtn(ll, "Center", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ToastUtils.setToastCreator(new ToastUtils.ToastCreator() {
+                    @Override
+                    public Toast create(Context context, CharSequence text, int duration) {
+                        Toast toast = Toast.makeText(context, null, duration);
+                        toast.setText(text);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        return toast;
+                    }
+                });
+                ToastUtils.showLong("CustomToast");
+            }
+        });
+
 
 //        ViewExt.setOnSlowlyClickListener();
     }

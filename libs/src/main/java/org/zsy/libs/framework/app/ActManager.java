@@ -86,18 +86,20 @@ public class ActManager {
 
     /**
      * 退出应用程序
+     * @deprecated instead
      */
+    @Deprecated
     public void AppExit(Context context) {
         try {
             finishAllActivity();
-            ActivityManager activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+//            ActivityManager activityMgr = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
 //            activityMgr.killBackgroundProcesses(context.getPackageName());
             System.exit(0);
         } catch (Exception e) {
         }
     }
 
-    public boolean isAppExit() {
-        return activityStack == null || activityStack.isEmpty();
-    }
+//    public boolean isAppExit() {
+//        return activityStack == null || activityStack.isEmpty();
+//    }
 }
