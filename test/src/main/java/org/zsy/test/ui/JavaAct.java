@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -15,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.zsy.libs.dialog.Dg;
 import org.zsy.libs.dialog.IDg;
 import org.zsy.libs.ext.ViewExt;
+import org.zsy.libs.filter.TimeFilter;
 import org.zsy.libs.lg.Lg;
 import org.zsy.libs.utils.reference.ToastUtils;
 import org.zsy.test.R;
@@ -121,6 +121,25 @@ public class JavaAct extends AppCompatActivity {
                     }
                 });
                 ToastUtils.showLong("CustomToast");
+            }
+        });
+
+        final TimeFilter filter = new TimeFilter(10000);
+        ViewExt.addBtn(ll, "Filter", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filter.isVerified()) {
+                    ToastUtils.showShort("111111");
+                }
+            }
+        });
+
+        ViewExt.addBtn(ll, "ShortFilter", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (filter.isVerifiedAndNext(1000)) {
+                    ToastUtils.showShort("2222");
+                }
             }
         });
 
