@@ -9,15 +9,14 @@ public class LogFormat implements ILogFormat {
     private static final char TOP_LEFT_CORNER = '┌';
     private static final char BOTTOM_LEFT_CORNER = '└';
     private static final char MIDDLE_CORNER = '├';
-    private static final char HORIZONTAL_LINE = '│';
+    private static final char V_LINE = '│';
     private static final String TAB = " ";
     private static final String DOUBLE_DIVIDER = "────────────────────────────────────────────────────────";
     private static final String SINGLE_DIVIDER = "┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄┄";
-    private static final String MSG_PREFIX = HORIZONTAL_LINE + TAB;
+    private static final String MSG_PREFIX = V_LINE + TAB;
     private static final String TOP_BORDER = TOP_LEFT_CORNER + DOUBLE_DIVIDER + DOUBLE_DIVIDER;
     private static final String BOTTOM_BORDER = BOTTOM_LEFT_CORNER + DOUBLE_DIVIDER + DOUBLE_DIVIDER;
     private static final String MIDDLE_BORDER = MIDDLE_CORNER + SINGLE_DIVIDER + SINGLE_DIVIDER;
-
 
 
     private int minLevel;
@@ -25,6 +24,7 @@ public class LogFormat implements ILogFormat {
     private boolean showMethodTrace;
     private int methodOffset;
     private int methodCount;
+    private int maxLineLen;
     private String baseTag;
     private Printer printer;
 
@@ -35,61 +35,10 @@ public class LogFormat implements ILogFormat {
         this.showMethodTrace = builder.showMethodTrace;
         this.methodOffset = builder.methodOffset;
         this.methodCount = builder.methodCount;
+        this.maxLineLen = builder.maxLineLen;
         this.baseTag = builder.baseTag;
         this.printer = builder.printer;
     }
-
-//    protected String assemble() {
-//        StringBuilder sb = new StringBuilder();
-//        final String prefix = prefix();
-//        sb.append(prefix)
-//                .append(TOP_BORDER)
-//                .append(BK);
-//        if (showDesInfo) {
-//            sb.append(assembleDes(prefix));
-//        }
-//
-//        if (showMethodTrace) {
-//            sb.append(assembleMethodTrace(prefix));
-//        }
-//
-//        sb.append(prefix).append(BOTTOM_BORDER);
-//        return sb.toString();
-//    }
-
-//    private String assembleDes(String prefix) {
-//        return prefix +
-//                des() +
-//                BK +
-//                prefix +
-//                MIDDLE_BORDER +
-//                BK;
-//    }
-//
-//    private String assembleMethodTrace(String prefix) {
-//        StringBuilder sb = new StringBuilder();
-//        StackTraceElement[] traces = new Throwable().getStackTrace();
-//        int end = Math.max(methodOffset + methodCount, traces.length);
-//        for (int i = methodOffset; i < end; i++) {
-//            sb.append(prefix)
-//                    .append(traces[i])
-//                    .append(BK);
-//        }
-//        sb.append(prefix)
-//                .append(MIDDLE_BORDER)
-//                .append(BK);
-//        return sb.toString();
-//    }
-//
-//    private String assembleMsg(String prefix, String msg) {
-//        StringBuilder sb = new StringBuilder(msg);
-//        int size = sb.length() / MAX_LINE_LEN;
-//
-//        for (int i = size; i >= 0; i--) {
-//            sb.insert(i * MAX_LINE_LEN, BK + prefix + HORIZONTAL_LINE);
-//        }
-//        return sb.toString();
-//    }
 
 
     private String timeInfo() {
@@ -104,7 +53,7 @@ public class LogFormat implements ILogFormat {
 
     private String prefix(String tag) {
         String tagInfo = tag == null ? baseTag : baseTag + "-" + tag;
-        return timeInfo() +  " /" + tagInfo + " : ";
+        return timeInfo() + " /" + tagInfo + " : ";
     }
 
     @Override
@@ -130,7 +79,12 @@ public class LogFormat implements ILogFormat {
         }
 
 //        StringBuilder sb = new StringBuilder(msg);
-        printer.println(level, baseTag, tag, prefix + MSG_PREFIX + msg);
+        int lineIndex = msg.length() / maxLineLen;
+        for (int i = 0; i <= lineIndex; i++) {
+            int start = i * maxLineLen;
+            int end = i == lineIndex ? msg.length() : start + maxLineLen;
+            printer.println(level, baseTag, tag, prefix + MSG_PREFIX + msg.subSequence(start, end));
+        }
 
         printer.println(level, baseTag, tag, prefix + BOTTOM_BORDER);
 
@@ -147,7 +101,8 @@ public class LogFormat implements ILogFormat {
         private boolean showMethodTrace = true;
         private int methodOffset = 3;
         private int methodCount = 3;
-        private String baseTag = "ZSY";
+        private int maxLineLen = 2000;
+        private String baseTag = "Lg";
         private Printer printer = SystemPrinter.INSTACNE;
 
 
@@ -173,6 +128,11 @@ public class LogFormat implements ILogFormat {
 
         public Builder setMethodCount(int methodCount) {
             this.methodCount = methodCount;
+            return this;
+        }
+
+        public Builder setMaxLineLen(int maxLineLen) {
+            this.maxLineLen = maxLineLen;
             return this;
         }
 
