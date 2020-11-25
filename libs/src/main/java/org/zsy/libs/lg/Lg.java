@@ -10,6 +10,12 @@ public class Lg {
     public static final int WARN = 5;
     public static final int ERROR = 6;
 
+    private static int minLevel = VERBOSE;
+
+    public static void setMinLevel(int minLevel) {
+        Lg.minLevel = minLevel;
+    }
+
     public static final LogAdapter DEFAULT_LOG_ADAPTER = defaultLogAdapter();//new AssembleLogAdapter(new LogFormat.Builder().build());
 
     private static LogAdapter logAdapter;
@@ -102,6 +108,9 @@ public class Lg {
     }
 
     private static void l(int level, String tag, String msg) {
+        if (minLevel > level) {
+            return;
+        }
         getLogAdapter().log(level, tag, msg);
     }
 

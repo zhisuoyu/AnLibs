@@ -3,8 +3,6 @@ package org.zsy.libs.utils;
 import android.app.Application;
 import android.content.Context;
 
-import kotlin.UninitializedPropertyAccessException;
-
 public class Utils {
 
 
@@ -19,7 +17,7 @@ public class Utils {
 
     public static Context getAppContext() {
         if (context == null) {
-            throw new UninitializedPropertyAccessException("Utils is not inited");
+            throw new ExceptionInInitializerError("Utils is not inited");
         }
         return context;
     }

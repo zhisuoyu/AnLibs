@@ -2,12 +2,10 @@ package org.zsy.test.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.jetbrains.anko.ToastsKt;
 import org.zsy.libs.framework.widget.TopBar;
 import org.zsy.libs.lg.Lg;
 import org.zsy.test.R;

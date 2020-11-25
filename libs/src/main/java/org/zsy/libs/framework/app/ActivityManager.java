@@ -1,23 +1,22 @@
 package org.zsy.libs.framework.app;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.content.Context;
 
 import java.util.Stack;
 
-public class ActManager {
+public class ActivityManager {
 
     private Stack<Activity> activityStack = new Stack<>();
-    private static ActManager instance = new ActManager();
+    private static ActivityManager instance = new ActivityManager();
 
-    private ActManager() {
+    private ActivityManager() {
     }
 
     /**
      * 单一实例
      */
-    public static ActManager getInstance() {
+    public static ActivityManager getInstance() {
         return instance;
     }
 
